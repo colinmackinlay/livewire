@@ -1,0 +1,3 @@
+@php
+    $account = 'livewire';
+@endphp

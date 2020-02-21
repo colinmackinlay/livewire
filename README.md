@@ -19,3 +19,29 @@ ALL OK SO FAR
 2.  ALL TESTS PASS
 
 ALL OK SO FAR
+
+##### 4. Install tenancy/multitenant
+1.  Remove old livewire database and user
+2.  Setup new livewire database and mysql user with grant privileges:
+```
+CREATE DATABASE IF NOT EXISTS livewire;
+CREATE USER IF NOT EXISTS livewire@localhost IDENTIFIED BY 'livewire';
+GRANT ALL PRIVILEGES ON *.* TO livewire@localhost WITH GRANT OPTION;
+```
+3.  php artisan migrate
+4.  php artisan tinker
+```
+ App\Tenant::registerTenant('tenant');
+```
+5.  This registers a tenant and sets up a user
+6.  Lots of files here to make the tenancy work. The main difference is that users of the tenant are recorded and authenticated from a "STaff" eloquent model which authenticate through an "employee" guard.The "User" model is reserved for logging in to the host system. I haven't brought in all the code for that as its nnot necessary to demonstrate the issue.
+
+##### 5. Try to use the route
+1. Visit tenant.livewire.test
+2. Login with credentials "tenant@livewire.test" and "password"
+3. Use the link to visit "/country"
+4. Go to UK entry "/country/4"
+5. Attempt to delete an airport - it won't work
+6. Check the log for the info messages
+-   It shows only the first one from the Livewire controller showing that the deleteAirport method has been called
+-   It doesn't show the authorize call hitting the policy as it fails as if not logged in

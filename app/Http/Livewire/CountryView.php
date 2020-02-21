@@ -22,6 +22,8 @@ class CountryView extends Component {
 
     public function deleteAirport($airport_id)
     {
+        info("Request delete airport with id $airport_id");
+
         $this->authorize('update', $this->country);
 
         if (Airport::find($airport_id)->country_id != $this->country->id) return;
