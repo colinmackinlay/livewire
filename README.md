@@ -45,3 +45,5 @@ GRANT ALL PRIVILEGES ON *.* TO livewire@localhost WITH GRANT OPTION;
 6. Check the log for the info messages
 -   It shows only the first one from the Livewire controller showing that the deleteAirport method has been called
 -   It doesn't show the authorize call hitting the policy as it fails as if not logged in
+##### Show that auth behaves differently in Livewire component in mount and deleteAirport method
+I've added logging of auth()->user()->name in two places. It only works when the component is mounted, not in the procedure call. It is there and logged in the render method too. 
