@@ -47,3 +47,5 @@ GRANT ALL PRIVILEGES ON *.* TO livewire@localhost WITH GRANT OPTION;
 -   It doesn't show the authorize call hitting the policy as it fails as if not logged in
 ##### Show that auth behaves differently in Livewire component in mount and deleteAirport method
 I've added logging of auth()->user()->name in two places. It only works when the component is mounted, not in the procedure call. It is there and logged in the render method too. 
+
+PS Although tests worked at the end of section 2, checking out that commit no longer passse the last test. This is due to storing the country as a public variable in the component. Deletions to its airports don't seem to flow through any more (they did) and the component re-renders in tests and browser with the deleted airport showing. Fixed this by calling ->fresh() on the country in render.

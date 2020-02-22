@@ -15,7 +15,7 @@ class CountryView extends Component {
 
     public function render()
     {
-        $airports = $this->country->airports;
+        $airports = $this->country->fresh()->airports;
         if (auth()->user())
         {
             $name = auth()->user()->name;
